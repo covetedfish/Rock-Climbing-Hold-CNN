@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import tensorflow as tf
+import PIL
+from PIL import Image
 from cnn import *
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras.datasets.cifar import load_batch
