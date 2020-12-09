@@ -63,8 +63,8 @@ def prepare_data(num_training=1068, num_validation=230, num_test=229):
     y_val = y_data[mask]
 
     mask = range(num_training + num_validation, num_test)
-    X_test = X_test[mask]
-    y_test = y_test[mask]
+    X_test = X_data[mask]
+    y_test = y_data[mask]
 
     # normalize the data. First find the mean and std of the *training* data,
     # then subtract off this mean from each dataset and divide by the std
