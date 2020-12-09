@@ -17,7 +17,8 @@ from tensorflow.python.keras.datasets.cifar import load_batch
 
 def load_data():
     hold_types = ["edges", "jugs", "pinches", "pockets", "slopers", "crimps"]
-    directory = "/Users/moresauce/Desktop/Cs360/cs360-project-erice22/scraped_data/"
+    cwd = os.getcwd()
+    directory = cwd + "/scraped_data/"
     
     x_list = []
     y_list = []
