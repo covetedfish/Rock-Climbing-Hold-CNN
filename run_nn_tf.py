@@ -51,7 +51,7 @@ def prepare_data(num_training=1068, num_validation=230, num_test=229):
     (X_data, y_data) = load_data()
 
     X_data = np.asarray(X_data, dtype=np.float32)
-    y_data = np.asarray(y_data, dtype=np.string).flatten()
+    y_data = np.asarray(y_data, dtype=np.string_).flatten()
     
     # Subsample the data
     mask = range(num_training)
