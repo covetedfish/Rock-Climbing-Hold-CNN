@@ -39,9 +39,10 @@ def load_data():
                 
     x_train = np.asarray(x_list)
     y_train = np.asarray(y_list)
+    name = np.asarray(name_list)
     p = np.random.permutation(len(y_list)) #shuffle along same axis 
     testy = y_train[p]
-    testname = name_list[p]
+    testname = name[p]
     print(testname[400])
     print(testy[400])
     return (x_train[p], y_train[p])
