@@ -63,7 +63,7 @@ def prepare_data(num_training=1068, num_validation=230, num_test=229):
     X_val = X_data[mask]
     y_val = y_data[mask]
 
-    mask = range(num_training + num_validation, num_test)
+    mask = range(num_training + num_validation, num_training + num_validation+ num_test)
     print("mask:")
     print(mask)
     X_test = X_data[mask]
@@ -80,8 +80,6 @@ def prepare_data(num_training=1068, num_validation=230, num_test=229):
     return X_train, y_train, X_val, y_val, X_test, y_test
 
 def train_step(images,labels, model, loss_object, optimizer): # TODO what arguments?
-    ###### TODO: YOUR CODE HERE ######
-    # look up documentation for tf.GradientTape
     # compute the predictions given the images, then compute the loss
     # compute the gradient with respect to the model parameters (weights), then
     # apply this gradient to update the weights (i.e. gradient descent)
@@ -93,7 +91,6 @@ def train_step(images,labels, model, loss_object, optimizer): # TODO what argume
     return loss, predictions
 
 def val_step(images, labels, model, loss_object): # TODO what arguments?
-    ###### TODO: YOUR CODE HERE ######
     # compute the predictions given the images, then compute the loss
     predictions = model(images)
     loss = loss_object(labels, predictions)
@@ -102,10 +99,8 @@ def val_step(images, labels, model, loss_object): # TODO what arguments?
 def run_training(model, train_dset, val_dset):
     plot_val = list()
     plot_train = list()
-    ###### TODO: YOUR CODE HERE ######
     loss_object = tf.keras.losses.SparseCategoricalCrossentropy()
     optimizer = tf.keras.optimizers.Adam()
-    ######## END YOUR CODE #############
 
     # set up metrics
     train_loss = tf.keras.metrics.Mean(name='train_loss')
