@@ -25,7 +25,7 @@ class CNNmodel(Model):
         self.pool = MaxPooling2D(strides = 2)
         self.c2 = Conv2D(16, 3, activation = tf.nn.relu)
         self.flatten = Flatten()
-        self.dense = Dense(10, activation = tf.nn.softmax)
+        self.dense = Dense(6, activation = tf.nn.softmax)
 
         # First conv layer: 32 filters, each 5x5
         # Second conv layer: 16 filters, each 3x3

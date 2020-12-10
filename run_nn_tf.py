@@ -40,7 +40,8 @@ def load_data():
     x_train = np.asarray(x_list)
     y_train = np.asarray(y_list)
     name = np.asarray(name_list)
-    p = np.random.permutation(len(y_list)) #shuffle along same axis 
+    p = np.arange(len(y_list)) #shuffle with same seed
+    np.random.shuffle(p)
     testy = y_train[p]
     testname = name[p]
     print(testname[1000])
@@ -63,6 +64,8 @@ def prepare_data(num_training=1068, num_validation=230, num_test=229):
     y_val = y_data[mask]
 
     mask = range(num_training + num_validation, num_test)
+    print("mask:")
+    print(mask)
     X_test = X_data[mask]
     y_test = y_data[mask]
 
