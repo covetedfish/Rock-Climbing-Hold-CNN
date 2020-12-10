@@ -43,8 +43,8 @@ def load_data():
     p = np.random.permutation(len(y_list)) #shuffle along same axis 
     testy = y_train[p]
     testname = name[p]
-    print(testname[400])
-    print(testy[400])
+    print(testname[1000])
+    print(testy[1000])
     return (x_train[p], y_train[p])
 
 def prepare_data(num_training=1068, num_validation=230, num_test=229):
