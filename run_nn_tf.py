@@ -24,21 +24,26 @@ def load_data():
     
     x_list = []
     y_list = []
+    name_list = []
 
     for h in range(6):
         dir_string = directory + hold_types[h] + "/identified_holds"
         for f in os.listdir(dir_string) :
             if not f.startswith('.'):
                 img_name = dir_string + "/" + f
-                image = Image.open(img_name) #(327, 480, 3)
+                image = Image.open(img_name) #(400, 400, 3)
                 img_array = np.asarray(image)
                 x_list.append(img_array)
                 y_list.append(h)
+                name_list.append(img_name)
                 
     x_train = np.asarray(x_list)
     y_train = np.asarray(y_list)
     p = np.random.permutation(len(y_list)) #shuffle along same axis 
-
+    testy = y_train[p]
+    testname = name_list[p]
+    print(testname[400])
+    print(testy[400])
     return (x_train[p], y_train[p])
 
 def prepare_data(num_training=1068, num_validation=230, num_test=229):
