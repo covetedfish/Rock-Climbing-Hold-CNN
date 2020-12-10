@@ -25,15 +25,15 @@ def load_data():
     x_list = []
     y_list = []
 
-    for hold in hold_types:
-        dir_string = directory + hold + "/identified_holds"
+    for h in range(6):
+        dir_string = directory + hold_types[h] + "/identified_holds"
         for f in os.listdir(dir_string) :
             if not f.startswith('.'):
                 img_name = dir_string + "/" + f
                 image = Image.open(img_name) #(327, 480, 3)
                 img_array = np.asarray(image)
                 x_list.append(img_array)
-                y_list.append(hold)
+                y_list.append(h)
                 
     x_train = np.asarray(x_list)
     y_train = np.asarray(y_list)
@@ -42,16 +42,10 @@ def load_data():
     return (x_train[p], y_train[p])
 
 def prepare_data(num_training=1068, num_validation=230, num_test=229):
-    """
-    Fetch the CIFAR-10 dataset from the web and perform preprocessing to prepare
-    it for the two-layer neural net classifier. These are the same steps as
-    we used for the SVM, but condensed to a single function.
-    """
-    # Load the raw CIFAR-10 dataset and use appropriate data types and shapes
     (X_data, y_data) = load_data()
 
     X_data = np.asarray(X_data, dtype=np.float32)
-    y_data = np.asarray(y_data, dtype=np.string_).flatten()
+    y_data = np.asarray(y_data, dtype=np.int64).flatten()
     
     # Subsample the data
     mask = range(num_training)
