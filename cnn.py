@@ -19,9 +19,10 @@ class CNNmodel(Model):
     def __init__(self):
         super(CNNmodel, self).__init__()
         # TODO complete constructor
-        self.c1 = Conv2D(16, 5, activation = tf.nn.relu)
+        self.c1 = Conv2D(64, 5, activation = tf.nn.relu)
         self.pool = MaxPooling2D(pool_size= (8,8), strides = 2)
-        self.c2 = Conv2D(8, 3, activation = tf.nn.relu)
+        self.c2 = Conv2D(16, 3, activation = tf.nn.relu)
+        self.c3 = Conv2D(3, 3, activation = tf.nn.relu)
         self.flatten = Flatten()
         self.dense = Dense(6, activation = tf.nn.softmax)
 
@@ -33,7 +34,9 @@ class CNNmodel(Model):
         pool1 = self.pool(c1)
         c2 = self.c2(pool1)
         pool2 = self.pool(c2)
-        flatten = self.flatten(c2)
+        c3 = self.c3(pool2)
+        pool3 = self.pool(c3)
+        flatten = self.flatten(pool3)
         dense = self.dense(flatten)
         return dense
 

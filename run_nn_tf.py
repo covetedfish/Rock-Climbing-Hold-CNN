@@ -79,7 +79,7 @@ def prepare_data(num_training=1068, num_validation=230, num_test=229):
 
     return X_train, y_train, X_val, y_val, X_test, y_test
 
-def train_step(images,labels, model, loss_object, optimizer): # TODO what arguments?
+def train_step(images,labels, model, loss_object, optimizer): 
     # compute the predictions given the images, then compute the loss
     # compute the gradient with respect to the model parameters (weights), then
     # apply this gradient to update the weights (i.e. gradient descent)
@@ -90,7 +90,7 @@ def train_step(images,labels, model, loss_object, optimizer): # TODO what argume
     optimizer.apply_gradients(zip(gradients, model.trainable_variables))
     return loss, predictions
 
-def val_step(images, labels, model, loss_object): # TODO what arguments?
+def val_step(images, labels, model, loss_object): 
     # compute the predictions given the images, then compute the loss
     predictions = model(images)
     loss = loss_object(labels, predictions)
@@ -111,17 +111,14 @@ def run_training(model, train_dset, val_dset):
     val_accuracy = tf.keras.metrics.SparseCategoricalAccuracy( \
         name='val_accuracy')
 
-    ###### TODO: YOUR CODE HERE ######
     # train for 10 epochs (passes over the data)
-    # Example of iterating over the data once:
     for epoch in range(10):
-        # TODO run training step
         for images, labels in train_dset:
             loss, predictions = train_step(images, labels, model, loss_object, optimizer)
             train_loss(loss)
             train_accuracy(labels, predictions)
 
-    # TODO loop over validation data and compute val_loss, val_accuracy too
+    #loop over validation data and compute val_loss, val_accuracy too
         for images, labels in val_dset:
             loss, predictions = val_step(images, labels, model, loss_object)
             val_loss(loss)
@@ -129,7 +126,6 @@ def run_training(model, train_dset, val_dset):
        
         plot_val.append(val_accuracy.result())
         plot_train.append(train_accuracy.result())
-    ######## END YOUR CODE #############
 
         template = 'Epoch {}, Loss: {}, Accuracy: {}, Val Loss: {}, Val Accuracy: {}'
         print(template.format(epoch+1,
