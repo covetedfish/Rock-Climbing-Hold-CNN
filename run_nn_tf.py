@@ -38,6 +38,8 @@ def load_data():
                 name_list.append(img_name)
                 
     x_train = np.asarray(x_list)
+    x_len, x_height, x_width = np.shape(x_train)
+    x_train = x_train.reshape(x_len, x_height, x_width, 1)
     y_train = np.asarray(y_list)
     name = np.asarray(name_list)
     p = np.arange(len(y_list)) #shuffle with same seed
