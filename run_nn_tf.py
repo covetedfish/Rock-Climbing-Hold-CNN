@@ -31,7 +31,7 @@ def load_data():
         for f in os.listdir(dir_string) :
             if not f.startswith('.'):
                 img_name = dir_string + "/" + f
-                image = Image.open(img_name) #(400, 400, 3)
+                image = Image.open(img_name).convert("L") #(400, 400, 3)
                 img_array = np.asarray(image)
                 x_list.append(img_array)
                 y_list.append(h)

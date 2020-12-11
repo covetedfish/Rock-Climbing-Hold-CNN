@@ -2,10 +2,6 @@ from bs4 import BeautifulSoup
 import numpy as np
 import shutil
 import os
-import PIL
-from PIL import Image
-import signal
-import sys
 
 def scrape(hold_types, tag_name, class_name, base_url, url_addin = ""):
     for hold in hold_types:
@@ -35,6 +31,6 @@ def download_image(image, hold):
 def main():
     hold_types = ["edges", "jugs", "pinches", "pockets", "slopers", "crimps"]
     #scrape(hold_types, "div","product-card__image-wrapper", "https://rockcandyholds.com/collections/holds-by-type/", "http:")
-    #crape(hold_types"span", "et_shop_image", "https://eldowalls.com/product-tag/")
+    #scrape(hold_types"span", "et_shop_image", "https://eldowalls.com/product-tag/")
 
 main()

@@ -9,7 +9,6 @@ import tensorflow as tf
 from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
 from tensorflow.keras import Model
 
-##################
 
 class CNNmodel(Model):
     """
@@ -22,7 +21,6 @@ class CNNmodel(Model):
         self.c1 = Conv2D(32, 5, activation = tf.nn.relu)
         self.pool = MaxPooling2D(pool_size= (8,8), strides = 2)
         self.c2 = Conv2D(16, 3, activation = tf.nn.relu)
-        self.c3 = Conv2D(3, 3, activation = tf.nn.relu)
         self.flatten = Flatten()
         self.dense = Dense(6, activation = tf.nn.softmax)
 
@@ -34,9 +32,7 @@ class CNNmodel(Model):
         pool1 = self.pool(c1)
         c2 = self.c2(pool1)
         pool2 = self.pool(c2)
-        c3 = self.c3(pool2)
-        pool3 = self.pool(c3)
-        flatten = self.flatten(pool3)
+        flatten = self.flatten(pool2)
         dense = self.dense(flatten)
         return dense
 
