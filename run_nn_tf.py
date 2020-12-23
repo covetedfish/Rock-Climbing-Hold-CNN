@@ -44,10 +44,6 @@ def load_data():
     name = np.asarray(name_list)
     p = np.arange(len(y_list)) #shuffle with same seed
     np.random.shuffle(p)
-    testy = y_train[p]
-    testname = name[p]
-    print(testname[1000])
-    print(testy[1000])
     return (x_train[p], y_train[p])
 
 def prepare_data(num_training=1068, num_validation=230, num_test=229):
@@ -114,7 +110,7 @@ def run_training(model, train_dset, val_dset):
         name='val_accuracy')
 
     # train for 10 epochs (passes over the data)
-    for epoch in range(10):
+    for epoch in range(6):
         for images, labels in train_dset:
             loss, predictions = train_step(images, labels, model, loss_object, optimizer)
             train_loss(loss)
@@ -142,13 +138,14 @@ def run_training(model, train_dset, val_dset):
         val_loss.reset_states()
         val_accuracy.reset_states()
 
-    plt.plot(range(1,11), plot_val, 'bo-')
-    plt.plot(range(1,11), plot_train, 'ro-')
-    plt.xlabel("Epochs")
-    plt.ylabel("Accuracy")
-    plt.title("CNN model")
-    plt.legend(("Validation", "Training"))
-    plt.show()
+    #Train vs. validation accuracy 
+    # plt.plot(range(1,11), plot_val, 'bo-')
+    # plt.plot(range(1,11), plot_train, 'ro-')
+    # plt.xlabel("Epochs")
+    # plt.ylabel("Accuracy")
+    # plt.title("CNN model")
+    # plt.legend(("Validation", "Training"))
+    # plt.show()
 
 def test(test_dset, model):
     for images, labels in test_dset:
@@ -177,6 +174,7 @@ def main():
     # call the train function to train a three-layer CNN
     cnn_model = CNNmodel()
     run_training(cnn_model, train_dset, val_dset)
+    model.save('saved_model/6_epochs')
     test(test_dset, cnn_model)
    
 
