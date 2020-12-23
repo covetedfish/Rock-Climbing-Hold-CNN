@@ -1,4 +1,4 @@
-# cs360-project
+# Indoor Rock Climbing Hold Classifier
 A convolutional neural network for the classification of indoor rock climbing holds. 
 
 ## Usage
