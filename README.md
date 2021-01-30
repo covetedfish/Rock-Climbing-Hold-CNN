@@ -8,7 +8,7 @@ python3 run_nn_tf.py
 
 ### Scraping the data
 
-python3 util.py 
+python3 scrape_holds.py 
 
 ### Processing the Images
 

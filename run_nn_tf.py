@@ -1,6 +1,6 @@
 """
-Starter code for NN training and testing.
-Source: Stanford CS231n course materials, modified by Sara Mathieson
+Runs convolutional neural network on climbing hold image data
+Adapted from Stanford CS231n course materials, modified by Sara Mathieson
 Authors: Enora Rice
 Date: 11/20/20
 """
@@ -17,7 +17,7 @@ from tensorflow.python.keras.datasets.cifar import load_batch
 
 
 def load_data():
-    #convert images to grayscale arrays
+    #convert images to grayscale np matrices
     hold_types = ["edges", "jugs", "pinches", "pockets", "slopers", "crimps"]
     cwd = os.getcwd()
     directory = cwd + "/scraped_data/"
@@ -26,7 +26,7 @@ def load_data():
     y_list = []
     name_list = []
 
-    for h in range(6):
+    for h in range(len(hold_types)):
         dir_string = directory + hold_types[h] + "/identified_holds"
         for f in os.listdir(dir_string) :
             if not f.startswith('.'):
@@ -110,14 +110,14 @@ def run_training(model, train_dset, val_dset):
     val_accuracy = tf.keras.metrics.SparseCategoricalAccuracy( \
         name='val_accuracy')
 
-    # train for 10 epochs (passes over the data)
+    # train for 6 epochs (passes over the data)
     for epoch in range(6):
         for images, labels in train_dset:
             loss, predictions = train_step(images, labels, model, loss_object, optimizer)
             train_loss(loss)
             train_accuracy(labels, predictions)
 
-    #loop over validation data and compute val_loss, val_accuracy too
+        #loop over validation data and compute val_loss, val_accuracy too
         for images, labels in val_dset:
             loss, predictions = val_step(images, labels, model, loss_object)
             val_loss(loss)
@@ -127,27 +127,26 @@ def run_training(model, train_dset, val_dset):
         plot_train.append(train_accuracy.result())
 
         template = 'Epoch {}, Loss: {}, Accuracy: {}, Val Loss: {}, Val Accuracy: {}'
-        print(template.format(epoch+1,
+        print(template.format(epoch + 1,
                             train_loss.result(),
-                            train_accuracy.result()*100,
+                            train_accuracy.result() * 100,
                             val_loss.result(),
-                            val_accuracy.result()*100))
+                            val_accuracy.result() * 100))
 
-    # Reset the metrics for the next epoch
+        # Reset the metrics for the next epoch
         train_loss.reset_states()
         train_accuracy.reset_states()
         val_loss.reset_states()
         val_accuracy.reset_states()
 
     #Train vs. validation accuracy 
-    # plt.plot(range(1,11), plot_val, 'bo-')
-    # plt.plot(range(1,11), plot_train, 'ro-')
-    # plt.xlabel("Epochs")
-    # plt.ylabel("Accuracy")
-    # plt.title("CNN model")
-    # plt.legend(("Validation", "Training"))
-    # plt.show()
-
+    plt.plot(range(1,11), plot_val, 'bo-')
+    plt.plot(range(1,11), plot_train, 'ro-')
+    plt.xlabel("Epochs")
+    plt.ylabel("Accuracy")
+    plt.title("CNN model")
+    plt.legend(("Validation", "Training"))
+    plt.show()
 
 def main():
     # Invoke the above function to get our data.
@@ -159,18 +158,15 @@ def main():
     print('Test data shape: ', X_test.shape)                # (10000, 32, 32, 3)
     print('Test labels shape: ', y_test.shape)              # (10000,)
 
-    
     # set up train_dset, val_dset, and test_dset:
     train_dset = tf.data.Dataset.from_tensor_slices((X_train, y_train)).shuffle(10,000).batch(64)
     test_dset = tf.data.Dataset.from_tensor_slices((X_test, y_test)).batch(64)
     val_dset = tf.data.Dataset.from_tensor_slices((X_val, y_val)).batch(64)
     
-
     # call the train function to train a three-layer CNN
     cnn_model = CNNmodel()
     run_training(cnn_model, train_dset, val_dset)
     model.save('saved_model/6_epochs')
     test(test_dset, cnn_model)
    
-
 main()

@@ -1,3 +1,8 @@
+'''
+Scrapes images from catalog
+Authors: Enora Rice
+Date: 11/20/20
+'''
 from bs4 import BeautifulSoup
 import numpy as np
 import shutil
@@ -32,7 +37,7 @@ def download_image(image, hold):
         
 def main():
     hold_types = ["edges", "jugs", "pinches", "pockets", "slopers", "crimps"]
-    #scrape(hold_types, "div","product-card__image-wrapper", "https://rockcandyholds.com/collections/holds-by-type/", "http:")
-    #scrape(hold_types"span", "et_shop_image", "https://eldowalls.com/product-tag/")
+    scrape(hold_types, "div","product-card__image-wrapper", "https://rockcandyholds.com/collections/holds-by-type/", "http:")
+    scrape(hold_types"span", "et_shop_image", "https://eldowalls.com/product-tag/")
 
 main()
