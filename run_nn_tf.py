@@ -15,9 +15,9 @@ from cnn import *
 from tensorflow.python.keras import backend as K
 from tensorflow.python.keras.datasets.cifar import load_batch
 
-##################
 
 def load_data():
+    #convert images to grayscale arrays
     hold_types = ["edges", "jugs", "pinches", "pockets", "slopers", "crimps"]
     cwd = os.getcwd()
     directory = cwd + "/scraped_data/"
@@ -47,6 +47,7 @@ def load_data():
     return (x_train[p], y_train[p])
 
 def prepare_data(num_training=1068, num_validation=230, num_test=229):
+    #Subsample the data and normalize
     (X_data, y_data) = load_data()
 
     X_data = np.asarray(X_data, dtype=np.float32)
@@ -146,12 +147,6 @@ def run_training(model, train_dset, val_dset):
     # plt.title("CNN model")
     # plt.legend(("Validation", "Training"))
     # plt.show()
-
-def test(test_dset, model):
-    for images, labels in test_dset:
-        predictions = model.predict(images)
-        matrix = tf.math.confusion_matrix(labels, tf.argmax(predictions,1))
-    print(matrix)
 
 
 def main():

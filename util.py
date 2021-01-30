@@ -4,6 +4,7 @@ import shutil
 import os
 
 def scrape(hold_types, tag_name, class_name, base_url, url_addin = ""):
+    # Scrape images off catalogs
     for hold in hold_types:
         url = base_url + hold
         response = requests.get(url)
@@ -17,6 +18,7 @@ def scrape(hold_types, tag_name, class_name, base_url, url_addin = ""):
             download_image(image_info[i], hold)
 
 def download_image(image, hold):
+    # Download images from source
     response = requests.get(image[0], stream=True)
     realname = ''.join(e for e in image[1] if e.isalnum())
     cwd = os.getcwd()
